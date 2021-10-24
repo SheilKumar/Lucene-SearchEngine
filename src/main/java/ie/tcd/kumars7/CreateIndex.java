@@ -32,9 +32,9 @@ public class CreateIndex {
         //set to open mode
         config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         //create the writer
-        IndexWriter writer = new IndexWriter(directory, config);
+        IndexWriter indexWriter = new IndexWriter(directory, config);
         //Pass writer to indexFiles method which completes the index
-        indexFiles(writer);
+        indexFiles(indexWriter);
     }
 
     public void indexFiles(IndexWriter indexWriter)
@@ -94,7 +94,7 @@ public class CreateIndex {
                 indexWriter.addDocument(doc);
                 System.out.println(doc);
             }
-            
+
             bufferedReader.close();
             indexWriter.close(); //close IndexWriter
         } catch (IOException e) {
