@@ -1,6 +1,8 @@
 package ie.tcd.kumars7;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.CharArraySet;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -25,7 +27,8 @@ public class CreateIndex {
     public void generateIndex() throws IOException
     {
         // Use the standard analyzer to read text fields
-        Analyzer analyzer = new StandardAnalyzer();
+        CharArraySet stopWordsSet = EnglishAnalyzer.getDefaultStopSet();
+        Analyzer analyzer = new StandardAnalyzer(stopWordsSet);
         //Store Directory on Disk
         Directory directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
         IndexWriterConfig config = new IndexWriterConfig(analyzer);

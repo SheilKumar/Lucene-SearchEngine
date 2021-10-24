@@ -6,9 +6,13 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        CreateIndex index = new CreateIndex();
-//        index.generateIndex();
+
+        //Generates Index with CranfieldDocuments
+        CreateIndex index = new CreateIndex();
+        index.generateIndex();
+
+        //Create Queries, performs search, and makes results file.
         QuerySearcher querySearcher = new QuerySearcher();
-        querySearcher.readQueries();
+        querySearcher.searchQueries();
     }
 }

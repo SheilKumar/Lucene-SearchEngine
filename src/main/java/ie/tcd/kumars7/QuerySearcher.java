@@ -33,7 +33,7 @@ public class QuerySearcher {
     private String INDEX_DIR =  "src/main/resources/index/";
     //change results string based on Analyzer and Scoring Method
     //format: results_{Analyzer}_{Scoring Method}.txt
-    private String RESULT_DIR = "src/main/resources/results/";
+    private String RESULT_DIR = "src/main/resources/results/results-Standard-VSM.txt";
 
     public void searchQueries() throws IOException
     {
@@ -46,16 +46,15 @@ public class QuerySearcher {
 
         //Choose Analyzer;
         CharArraySet stopWordsSet = EnglishAnalyzer.getDefaultStopSet();
-
         Analyzer analyzer = new StandardAnalyzer(stopWordsSet);
 
         //Choose Scoring Method
 
         //VectorSpaceModel
-//        indexSearcher.setSimilarity(new ClassicSimilarity());
+        indexSearcher.setSimilarity(new ClassicSimilarity());
 
         //BM25
-        indexSearcher.setSimilarity(new BM25Similarity());
+//        indexSearcher.setSimilarity(new BM25Similarity());
 
         //Define MultiField Parser
         MultiFieldQueryParser multiFieldQueryParser =
@@ -74,11 +73,12 @@ public class QuerySearcher {
 
         //loop through the elements in queryArrayList perform the search
         int queryID = 0;
-        for (int i=0; i<queryArrayList.size(); i++) {
+        for (Query currQuery : queryArrayList) {
             queryID++;
-            Query currQuery = queryArrayList.get(i);
-            generateSearch(indexSearcher,currQuery,queryID,printWriter);
+            generateSearch(indexSearcher, currQuery, queryID, printWriter);
         }
+        indexReader.close();
+        printWriter.close();
 
     }
 
