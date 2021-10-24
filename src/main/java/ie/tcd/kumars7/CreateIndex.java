@@ -24,11 +24,15 @@ public class CreateIndex {
     private static String INDEX_DIRECTORY = "src/main/resources/index/";
 
 
-    public void generateIndex() throws IOException
+    public void generateIndex(Analyzer analyzer) throws IOException
     {
-        // Use the standard analyzer to read text fields
-        CharArraySet stopWordsSet = EnglishAnalyzer.getDefaultStopSet();
-        Analyzer analyzer = new StandardAnalyzer(stopWordsSet);
+//        // Use the standard analyzer to read text fields
+//        CharArraySet stopWordsSet = EnglishAnalyzer.getDefaultStopSet();
+//        //Standard analyzer
+////        Analyzer analyzer = new StandardAnalyzer(stopWordsSet);
+//
+//        //English Analyzer
+//        Analyzer analyzer = new EnglishAnalyzer(stopWordsSet);
         //Store Directory on Disk
         Directory directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -43,6 +47,7 @@ public class CreateIndex {
     public void indexFiles(IndexWriter indexWriter)
     {
         try {
+            System.out.println("Indexing Documents ...");
             FileReader fileReader = new FileReader(CRAN_DOC_DIRECTORRY);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
@@ -53,8 +58,6 @@ public class CreateIndex {
             while (currLine!=null) {
                 StringBuilder title = new StringBuilder(); StringBuilder author = new StringBuilder(); StringBuilder bibliography = new StringBuilder(); StringBuilder content = new StringBuilder();
                 id++; //increases every time we pass .I
-
-                System.out.println("Indexing document: " + id);
 
                 while(!currLine.contains(".T")) {
                     currLine = bufferedReader.readLine(); //skip lines till we come to the Title
@@ -95,14 +98,13 @@ public class CreateIndex {
                 //Use createDoc method to assign to lucene doc and use writer to write to index
                 Document doc = createDocs(String.valueOf(id), title.toString(), author.toString(), bibliography.toString(), content.toString());
                 indexWriter.addDocument(doc);
-                System.out.println(doc);
             }
-
             bufferedReader.close();
             indexWriter.close(); //close IndexWriter
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Indexing complete.\n");
     }
 
     public Document createDocs(String id, String title, String author, String bibliography, String content)
