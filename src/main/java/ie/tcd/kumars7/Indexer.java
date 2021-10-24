@@ -18,7 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-public class CreateIndex {
+public class Indexer {
 
     private static String CRAN_DOC_DIRECTORRY = "src/main/resources/cran/cran.all.1400";
     private static String INDEX_DIRECTORY = "src/main/resources/index/";

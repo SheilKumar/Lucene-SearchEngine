@@ -43,7 +43,7 @@ public class Main {
         System.out.println("Using Scoring Method: " + similaritiesList[arg1]);
 
         //Generates Index with Cranfield Documents
-        CreateIndex index = new CreateIndex();
+        Indexer index = new Indexer();
         index.generateIndex(analyzersList[arg0]);
 
         //Create Queries, performs search, and makes results file.

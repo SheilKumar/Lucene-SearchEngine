@@ -56,6 +56,7 @@ public class QuerySearcher {
 //
 //        //English Analyzer
 //        Analyzer analyzer = new EnglishAnalyzer(stopWordsSet);
+
 //        //Choose Scoring Method
 //        //!! Need to change RESULT_NAME as well !!
 //        //VectorSpaceModel
