@@ -1,4 +1,6 @@
-#Lucene-SearchEngine 
+# Lucene-SearchEngine 
+
+A search engine built using [Apache Lucene](https://lucene.apache.org) and the [Cranfield Collection](http://ir.dcs.gla.ac.uk/resources/test_collections/cran/)
 
 ## Installation 
 
@@ -16,6 +18,15 @@ mvn package
 
 ```
 java -jar target/lucene-information-retrieval-1.0.jar arg0 arg1 arg2
+```
+4. Run `trec_eval` on desired reults/similarity report file. 
+
+```
+../trec_eval/trec_eval src/main/resources/cran/QRelsCorrectedforTRECeval src/main/resources/results/{arg2}
+```
+For example to run `trec_eval` on `results-English-BM25.txt`
+```
+../trec_eval/trec_eval src/main/resources/cran/QRelsCorrectedforTRECeval src/main/resources/results/results-English-BM25.txt
 ```
 
 ## Arguments 
